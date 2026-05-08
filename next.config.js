@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+
+  output: "export",
+  basePath: "/nextjs",
+  assetPrefix: "/nextjs/",
   images: {
-    domains: [],
+     unoptimized: true,
   },
 };
 
