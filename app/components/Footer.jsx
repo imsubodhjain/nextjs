@@ -114,7 +114,7 @@ export default function Footer() {
               ))}
             </div>
             <motion.a
-              href="mailto:alex@example.com"
+              href="mailto:subodh.051137@tmu.ac.in"
               whileHover={{ scale: 1.04 }}
               style={{
                 display: 'inline-flex',

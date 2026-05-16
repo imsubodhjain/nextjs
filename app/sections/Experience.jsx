@@ -13,7 +13,6 @@ const experiences = [
     period: 'March 26 – Present',
     type: 'Full-time',
     color: '#6366f1',
-    emoji: '🚀',
     highlights: [
       'Labkind ERP (Laboratory Information Management System) is a centralized digital platform developed to automate and manage laboratory operations efficiently.',
       'The system is designed to replace traditional manual registers and paperwork with a secure, organized, and transparent workflow-based solution.',
@@ -29,7 +28,6 @@ const experiences = [
     period: 'Jun 2025 – Sept 2025',
     type: 'Full-time',
     color: '#8b5cf6',
-    emoji: '💡',
     highlights: [
       'Building responsive user interfaces using React.js',
       'Creating RESTful APIs with Node.js and Express.js',
@@ -45,7 +43,6 @@ const experiences = [
     period: 'Jun 2025 – Sept 2025',
     type: 'Project',
     color: '#06b6d4',
-    emoji: '⚡',
     highlights: [
       'HealthNexus is a healthcare web-based application developed using the MERN stack (MongoDB, Express.js, React.js, and Node.js).',
       'The main objective of this project is to simplify the healthcare appointment and management process through a digital platform.',
@@ -59,7 +56,6 @@ const experiences = [
   //   period: '2025 – Present',
   //   type: 'Volunteer',
   //   color: '#10b981',
-  //   emoji: '🌍',
   //   highlights: [
   //     'Contributed 50+ PRs to popular React and Node.js open source projects.',
   //     'Authored and maintain a UI component library with 300+ GitHub stars.',
@@ -135,7 +131,7 @@ function TimelineItem({ exp, index }) {
             boxShadow: `0 0 20px ${exp.color}22`,
           }}
         >
-          {exp.emoji}
+          <FiBriefcase color={exp.color} size={24} />
         </motion.div>
       </div>
 

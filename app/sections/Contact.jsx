@@ -154,7 +154,7 @@ export default function Contact() {
                 gap: '12px',
                 alignItems: 'center',
               }}>
-                <span style={{ fontSize: '28px' }}>🟢</span>
+                <span style={{ fontSize: '14px', width: '12px', height: '12px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
                 <div>
                   <div style={{ fontWeight: '700', fontSize: '15px', marginBottom: '2px' }}>Currently Available</div>
                   <div style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>

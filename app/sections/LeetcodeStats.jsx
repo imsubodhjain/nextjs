@@ -7,22 +7,51 @@ import ScrollReveal from '../components/ScrollReveal';
 import { SectionHeader } from './About';
 import { FiTarget, FiTrendingUp, FiZap } from 'react-icons/fi';
 
-// Fetch LeetCode data from API route
-const fetchLeetcodeData = async () => {
+// Fetch LeetCode data from Alfa LeetCode API
+const fetchLeetcodeData = async (username = 'imsubodhjain') => {
   try {
-    const response = await fetch('/api/leetcode');
+    const [solvedRes, calendarRes] = await Promise.all([
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`),
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}/calendar`)
+    ]);
 
-    if (!response.ok) {
+    if (!solvedRes.ok || !calendarRes.ok) {
       throw new Error('Failed to fetch LeetCode data');
     }
 
-    const data = await response.json();
+    const solvedData = await solvedRes.json();
+    const calendarData = await calendarRes.json();
 
-    if (data.error) {
-      throw new Error(data.error);
+    if (solvedData.error || calendarData.error) {
+      throw new Error(solvedData.error || calendarData.error);
     }
 
-    return data;
+    // Format the contribution data for the calendar heatmap
+    let contributionData = [];
+    if (calendarData.submissionCalendar) {
+      const submissions = JSON.parse(calendarData.submissionCalendar);
+      contributionData = Object.keys(submissions).map(timestamp => {
+        // Convert Unix timestamp (seconds) to Date object
+        const date = new Date(parseInt(timestamp) * 1000);
+        // Format date as YYYY-MM-DD
+        const formattedDate = date.toISOString().split('T')[0];
+
+        return {
+          date: formattedDate,
+          count: submissions[timestamp]
+        };
+      });
+    }
+
+    return {
+      currentStreak: calendarData.streak || 0,
+      totalSolved: solvedData.solvedProblem || 0,
+      easy: solvedData.easySolved || 0,
+      medium: solvedData.mediumSolved || 0,
+      hard: solvedData.hardSolved || 0,
+      totalActiveDays: calendarData.totalActiveDays || 0,
+      contributionData: contributionData,
+    };
   } catch (error) {
     console.error('Error fetching LeetCode data:', error);
     return null;
@@ -129,7 +158,7 @@ export default function LeetcodeStats() {
   };
 
   return (
-    <section id="leetcode" style={{ padding: '120px 0', background: 'var(--bg-primary)' }}>
+    <section id="leetcode" style={{ padding: '80px 0', background: 'var(--bg-primary)' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
         {/* Section header */}
         <ScrollReveal>
@@ -145,7 +174,7 @@ export default function LeetcodeStats() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          style={{ marginTop: '60px' }}
+          style={{ marginTop: '40px' }}
         >
           {/* Top stats cards */}
           <motion.div
@@ -154,7 +183,7 @@ export default function LeetcodeStats() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
               gap: '20px',
-              marginBottom: '40px',
+              marginBottom: '30px',
             }}
             className="stats-grid"
           >
@@ -169,7 +198,7 @@ export default function LeetcodeStats() {
                     background: `linear-gradient(135deg, var(--bg-card) 0%, rgba(99,102,241,0.05) 100%)`,
                     border: '1px solid rgba(99,102,241,0.2)',
                     borderRadius: '24px',
-                    padding: '32px 24px',
+                    padding: '24px 20px',
                     position: 'relative',
                     overflow: 'hidden',
                     cursor: 'default',
@@ -198,11 +227,11 @@ export default function LeetcodeStats() {
                       position: 'absolute',
                       top: 0,
                       right: 0,
-                      width: '120px',
-                      height: '120px',
-                      background: `radial-gradient(circle, ${stat.color}30, transparent)`,
+                      width: '80px',
+                      height: '80px',
+                      background: `radial-gradient(circle, ${stat.color}15, transparent)`,
                       borderRadius: '50%',
-                      filter: 'blur(40px)',
+                      filter: 'blur(30px)',
                     }}
                   />
 
@@ -226,21 +255,12 @@ export default function LeetcodeStats() {
                       }}>
                         <Icon />
                       </div>
-                      <motion.div
-                        animate={{ rotate: [0, 5, -5, 0] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        style={{ fontSize: '24px' }}
-                      >
-                        {stat.label === 'Current Streak' && '🔥'}
-                        {stat.label === 'Problems Solved' && '🎯'}
-                        {stat.label === 'Best Streak' && '⭐'}
-                      </motion.div>
                     </div>
 
                     <div style={{
-                      fontSize: '48px',
+                      fontSize: '36px',
                       fontWeight: '900',
-                      letterSpacing: '-2px',
+                      letterSpacing: '-1px',
                       marginBottom: '4px',
                       color: stat.color,
                     }}>
@@ -269,11 +289,11 @@ export default function LeetcodeStats() {
             <motion.div
               variants={itemVariants}
               style={{
-                background: 'linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.05) 100%)',
-                border: '1px solid rgba(99,102,241,0.2)',
-                borderRadius: '24px',
-                padding: '32px',
-                marginBottom: '40px',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border)',
+                borderRadius: '20px',
+                padding: '24px',
+                marginBottom: '30px',
               }}
               className="heatmap-container"
             >
@@ -341,7 +361,7 @@ export default function LeetcodeStats() {
                     background: `linear-gradient(135deg, var(--bg-card) 0%, ${difficulty.bgColor} 100%)`,
                     border: `1.5px solid ${difficulty.color}40`,
                     borderRadius: '20px',
-                    padding: '28px',
+                    padding: '20px',
                     position: 'relative',
                     overflow: 'hidden',
                     transition: 'all 0.3s ease',
@@ -472,7 +492,7 @@ export default function LeetcodeStats() {
                   : 'linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%)',
                 border: error ? '1px solid rgba(239, 68, 68, 0.2)' : '1px solid rgba(34, 197, 94, 0.2)',
                 borderRadius: '20px',
-                padding: '24px',
+                padding: '20px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '16px',
@@ -489,7 +509,7 @@ export default function LeetcodeStats() {
                 fontSize: '24px',
                 flexShrink: 0,
               }}>
-                {error ? '⚠️' : '💡'}
+                {error ? '!' : 'i'}
               </div>
               <div>
                 <div style={{
@@ -507,7 +527,7 @@ export default function LeetcodeStats() {
                 }}>
                   {error
                     ? 'Failed to load LeetCode data'
-                    : `${leetcodeData.currentStreak > 0 ? `${leetcodeData.currentStreak}-Day Streak! 🔥` : 'Keep Solving!'}`}
+                    : `${leetcodeData.currentStreak > 0 ? `${leetcodeData.currentStreak}-Day Streak!` : 'Keep Solving!'}`}
                 </div>
                 <div style={{
                   fontSize: '14px',
@@ -515,7 +535,7 @@ export default function LeetcodeStats() {
                 }}>
                   {error
                     ? 'Please check your internet connection and try refreshing the page.'
-                    : `${leetcodeData.totalSolved} problems solved with ${leetcodeData.totalActiveDays} active coding days. Keep pushing! 💪`}
+                    : `${leetcodeData.totalSolved} problems solved with ${leetcodeData.totalActiveDays} active coding days. Keep pushing!`}
                 </div>
               </div>
             </motion.div>
@@ -536,40 +556,33 @@ export default function LeetcodeStats() {
           font-size: 14px;
         }
 
+        .react-calendar-heatmap rect {
+          rx: 2;
+          ry: 2;
+        }
+
         .react-calendar-heatmap .color-empty {
-          fill: rgba(99, 102, 241, 0.08);
-          stroke: rgba(99, 102, 241, 0.1);
-          stroke-width: 1px;
+          fill: rgba(255, 255, 255, 0.05);
         }
 
         .react-calendar-heatmap .color-scale-1 {
-          fill: rgba(34, 197, 94, 0.25);
-          stroke: rgba(34, 197, 94, 0.3);
-          stroke-width: 1px;
+          fill: #0e4429;
         }
 
         .react-calendar-heatmap .color-scale-2 {
-          fill: rgba(34, 197, 94, 0.45);
-          stroke: rgba(34, 197, 94, 0.5);
-          stroke-width: 1px;
+          fill: #006d32;
         }
 
         .react-calendar-heatmap .color-scale-3 {
-          fill: rgba(34, 197, 94, 0.65);
-          stroke: rgba(34, 197, 94, 0.7);
-          stroke-width: 1px;
+          fill: #26a641;
         }
 
         .react-calendar-heatmap .color-scale-4 {
-          fill: rgba(34, 197, 94, 0.85);
-          stroke: rgba(34, 197, 94, 0.9);
-          stroke-width: 1px;
+          fill: #39d353;
         }
 
         .react-calendar-heatmap .color-scale-5 {
-          fill: #22c55e;
-          stroke: rgba(34, 197, 94, 1);
-          stroke-width: 1px;
+          fill: #4ade80;
         }
 
         .react-calendar-heatmap text.react-calendar-heatmap-text {

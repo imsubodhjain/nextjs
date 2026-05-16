@@ -57,7 +57,7 @@ export default function About() {
                 My expertise spans across the entire stack — from crafting pixel-perfect interfaces with <span style={{ color: '#a5b4fc' }}>React & Next.js</span> to architecting robust backends with <span style={{ color: '#a5b4fc' }}>Node.js and PostgreSQL</span>. I'm deeply passionate about clean code, developer experience, and shipping products that users love.
               </p>
               <p style={{ fontSize: '16px', lineHeight: '1.8', color: 'var(--text-secondary)' }}>
-                When I'm not coding, I contribute to open source, write technical articles, and mentor aspiring developers. I believe technology should be accessible, inclusive, and delightful.
+                I aspire to bridge the gap between real-world problems and technology by building software solutions that create real impact.
               </p>
             </ScrollReveal>
 
@@ -153,7 +153,7 @@ export default function About() {
                   Currently
                 </div>
                 <div style={{ fontWeight: '700', fontSize: '16px', marginBottom: '8px' }}>
-                  🏗️ Building a LIMS(Laboratory Inventory Management System)
+                  Building a LIMS(Laboratory Inventory Management System)
                 </div>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.6' }}>
                   react,redux,nodejs,PostgreSQL,express...

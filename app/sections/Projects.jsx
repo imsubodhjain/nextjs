@@ -247,7 +247,7 @@ function ProjectCard({ project, index, onClick }) {
               fontWeight: '600',
               letterSpacing: '1px',
             }}>
-              ✦ FEATURED
+              FEATURED
             </span>
           )}
           <span style={{

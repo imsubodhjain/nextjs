@@ -19,7 +19,6 @@ const skillCategories = [
   {
     id: 'frontend',
     label: 'Frontend',
-    emoji: '🎨',
     color: '#6366f1',
     skills: [
       { name: 'HTML5', icon: <FaHtml5 />, color: '#e34f26', level: 95 },
@@ -35,7 +34,6 @@ const skillCategories = [
   {
     id: 'backend',
     label: 'Backend',
-    emoji: '⚙️',
     color: '#10b981',
     skills: [
       { name: 'Node.js', icon: <FaNodeJs />, color: '#339933', level: 88 },
@@ -47,7 +45,6 @@ const skillCategories = [
   {
     id: 'database',
     label: 'Database',
-    emoji: '🗄️',
     color: '#f59e0b',
     skills: [
       { name: 'MySQL', icon: <SiMysql />, color: '#4479a1', level: 82 },
@@ -59,7 +56,6 @@ const skillCategories = [
   {
     id: 'tools',
     label: 'Frameworks & Tools',
-    emoji: '🛠️',
     color: '#8b5cf6',
     skills: [
       { name: 'Redux', icon: <SiRedux />, color: '#764abc', level: 82 },
@@ -71,7 +67,6 @@ const skillCategories = [
   {
     id: 'devops',
     label: 'DevOps & Others',
-    emoji: '🚀',
     color: '#ec4899',
     skills: [
       { name: 'Git', icon: <FaGitAlt />, color: '#f05032', level: 90 },
@@ -131,7 +126,6 @@ export default function Skills() {
                   gap: '6px',
                 }}
               >
-                <span>{cat.emoji}</span>
                 {cat.label}
               </motion.button>
             ))}
@@ -186,7 +180,6 @@ export default function Skills() {
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                  <span style={{ fontSize: '24px' }}>{cat.emoji}</span>
                   <div>
                     <div style={{ fontWeight: '700', fontSize: '15px' }}>{cat.label}</div>
                     <div style={{ color: 'var(--text-secondary)', fontSize: '12px' }}>{cat.skills.length} technologies</div>

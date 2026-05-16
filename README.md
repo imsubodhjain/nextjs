@@ -1,4 +1,4 @@
-# Alex Rivera — Portfolio
+# Subodh Jain — Portfolio
 
 A modern, fully animated personal portfolio built with Next.js 14 (App Router), React, Tailwind CSS, and Framer Motion.
 
@@ -50,7 +50,7 @@ In `app/sections/Hero.jsx`, find the placeholder div with "AR" initials and repl
 ```jsx
 import Image from 'next/image';
 // ...
-<Image src="/images/profile.jpg" alt="Alex Rivera" fill style={{ objectFit: 'cover' }} />
+<Image src="/images/profile.jpg" alt="Subodh Jain" fill style={{ objectFit: 'cover' }} />
 ```
 Place your photo at `public/images/profile.jpg`.
 

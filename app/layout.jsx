@@ -3,7 +3,7 @@ import './globals.css';
 export const metadata = {
   title: 'Subodh Jain — Full Stack Developer',
   description: 'Full Stack Developer & Software Engineer specializing in React, Next.js, Node.js and modern web technologies.',
-  keywords: ['developer', 'portfolio', 'full stack', 'react', 'nextjs', 'imsubodhjain','TMU','Labkind ERP'],
+  keywords: ['developer', 'portfolio', 'full stack', 'react', 'nextjs', 'subodh jain', 'TMU', 'Labkind ERP', 'subodh'],
 };
 
 export default function RootLayout({ children }) {

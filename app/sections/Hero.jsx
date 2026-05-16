@@ -157,7 +157,7 @@ export default function Hero() {
                 primary
                 onClick={() => scrollToSection('#projects')}
               >
-                View Projects ✦
+                View Projects
               </CTAButton>
               <CTAButton
                 secondary

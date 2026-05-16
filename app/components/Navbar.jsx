@@ -6,6 +6,7 @@ import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 
 const navLinks = [
   { label: 'About', href: '#about' },
+  { label: 'LeetCode', href: '#leetcode' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
@@ -234,7 +235,7 @@ export default function Navbar() {
                 fontFamily: 'inherit',
               }}
             >
-              Hire Me ✦
+              Hire Me
             </motion.button>
           </motion.div>
         )}
